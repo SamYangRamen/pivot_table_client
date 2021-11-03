@@ -1,0 +1,47 @@
+import React from 'react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react'
+import { useObservableState } from 'observable-hooks'
+
+export interface SheetRange {
+    row: number;
+    col: number;
+}
+
+export default class ValueStore {
+    @observable private sheetRange: SheetRange = { row: 0, col: 0 };
+
+    public getSheetRange(): SheetRange {
+        return this.sheetRange;
+    }
+
+    public setSheetRange(sheetRange: SheetRange) {
+        this.sheetRange.row = sheetRange.row;
+        this.sheetRange.col = sheetRange.col;
+    }
+
+    public getRowSize(): number {
+        return this.sheetRange.row;
+    }
+
+    public setRowSize(row: number) {
+        this.sheetRange.row = row;
+    }
+
+    public getColSize(): number {
+        return this.sheetRange.col;
+    }
+
+    public setColSize(col: number) {
+        this.sheetRange.col = col;
+    }
+}
+/*
+const Values: React.FC<{ row: number, col: number }> = ({ row, col }) => {
+    return (
+        <ul>
+
+        </ul>
+    )
+};
+*/
