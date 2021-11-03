@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import StoreProvider from './StoreProvider';
-import RootStore from './RootStore';
-import ValueStore from './ValueStore';
+import Root from './Root';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Root />
   </BrowserRouter>,
   document.getElementById('root')
 );
