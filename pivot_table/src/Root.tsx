@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router';
 import Home from './Home';
 import LoadSheet from './LoadSheet';
 import NewSheet from './NewSheet';
+import RepositoryStore from './RepositoryStore';
 import RootStore from './RootStore';
 import StoreProvider from './StoreProvider';
 import ValueStore from './ValueStore';
@@ -13,7 +14,7 @@ import ValueStore from './ValueStore';
     모든 컴포넌트들에서 접근 가능하도록 작성한 것임
 */
 const Root: React.FC = () => {
-    const [store] = useState<RootStore>({ valueStore: new ValueStore });
+    const [store] = useState<RootStore>({ valueStore: new ValueStore, repositoryStore: new RepositoryStore });
 
     return (
         <StoreProvider value={store}>
