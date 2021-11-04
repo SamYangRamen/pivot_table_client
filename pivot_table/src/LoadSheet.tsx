@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef, RefObject } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import Repository from './Repository';
+
+/* DB에 저장되었던 Sheet 정보를 하나 정해서 불러오는 코드 */
 
 const LoadSheet: React.FC = () => {
+    const repo: Repository = new Repository();
     const [value, setValue] = useState('');
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

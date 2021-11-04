@@ -8,6 +8,7 @@ import RootStore from './RootStore';
 import EditSheet from './EditSheet';
 import { render } from '@testing-library/react';
 
+/* 새로운 Sheet를 생성하는 코드 */
 const NewSheet: React.FC = () => {
     const { valueStore } = useStore();
 

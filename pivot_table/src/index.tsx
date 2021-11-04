@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Root from './Root';
 
+// 가장 먼저 실행되는 부분
 ReactDOM.render(
   <BrowserRouter>
     <Root />

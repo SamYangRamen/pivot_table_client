@@ -7,6 +7,7 @@ interface Props {
     col: number;
 }
 
+/* Sheet를 렌더링하는 코드 */
 const ShowSheet: React.FC<Props> = ({ row, col }) => {
     const { valueStore } = useStore();
     const refctx: RefObject<HTMLCanvasElement> = useRef<HTMLCanvasElement>(null);

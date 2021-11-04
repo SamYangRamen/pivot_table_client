@@ -2,13 +2,8 @@ import React, { useState, useEffect, RefObject, useRef } from 'react';
 import { withRouter } from 'react-router';
 import useStore from './useStore';
 import ShowSheet from './ShowSheet';
-/*
- 
-useEffect(() => {
-    const ctx = refctx?.
-})
-*/
 
+/* 불러오거나 새로 생성한 Sheet를 직접 편집하는 코드 */
 const EditSheet: React.FC = () => {
     const { valueStore } = useStore();
 

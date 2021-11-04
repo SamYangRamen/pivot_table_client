@@ -2,6 +2,7 @@ import './Home.css';
 import React, { useState, useEffect } from 'react';
 import { Route, Link, Switch, Redirect, withRouter } from 'react-router-dom';
 
+/* 사용자에게 가장 먼저 보여지는 부분 */
 const Home: React.FC = () => {
   return (
     <div>
