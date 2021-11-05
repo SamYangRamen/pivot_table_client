@@ -19,7 +19,13 @@ export interface CellDataDTO {
 
 export interface SheetDataDTO {
     sheetId: number;
+    sheetRange: SheetRangeDTO;
     cells: Array<CellDataDTO>;
+}
+
+export interface SheetRangeDTO {
+    row: number;
+    col: number;
 }
 
 class SheetRepository {
@@ -41,8 +47,8 @@ class SheetRepository {
     }
     */
 
-    public testMethod(num: number): Promise<TestData> {
-        return axios.get(`/test?num=${num}`).then(response => {
+    public getTestMethod(num: number): Promise<TestData> {
+        return axios.get(`/GET/test?num=${num}`).then(response => {
             alert(response)
             return response.data;
         }).catch(() => {
@@ -50,8 +56,17 @@ class SheetRepository {
         });
     }
 
-    public initSheetData(sheet: SheetDataDTO): Promise<number> {
-        return axios.post('HTTP POST /sheet', sheet).then(response => {
+    public postTestMethod(num: number): Promise<TestData> {
+        return axios.post(`/POST/test`, { dto: num }).then(response => {
+            alert(response)
+            return response.data;
+        }).catch(() => {
+            return 5678;
+        });
+    }
+
+    public initSheetData(sheet: SheetRangeDTO): Promise<number> {
+        return axios.post('POST/sheet', { dto: sheet }).then(response => {
             return response.data;
         });
     }
