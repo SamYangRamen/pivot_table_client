@@ -11,31 +11,52 @@ import { render } from '@testing-library/react';
 /* 새로운 Sheet를 생성하는 코드 */
 const NewSheet: React.FC = () => {
     const { valueStore } = useStore();
+    const repo = useStore().repositoryStore.getSheetRepository();
 
-    const [tempSheetRange, setTempSheetRange] = useState({
-        row: 0,
-        col: 0
+    const [tempSheetInfo, setTempSheetInfo] = useState({
+        sheetName: '',
+        maxRow: 0,
+        maxCol: 0
     })
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const nextSheetRange = {
-            ...tempSheetRange,
-            [e.target.name]: parseInt(e.target.value)
+        let nextSheetInfo;
+        if (e.target.name == 'sheetName') {
+            nextSheetInfo = {
+                ...tempSheetInfo,
+                [e.target.name]: e.target.value
+            };
+        } else {
+            nextSheetInfo = {
+                ...tempSheetInfo,
+                [e.target.name]: parseInt(e.target.value)
+            }
         };
-        setTempSheetRange(nextSheetRange);
+        setTempSheetInfo(nextSheetInfo);
     }
 
-    const changeSheetRange = () => {
-        valueStore.setSheetRange({ row: tempSheetRange.row, col: tempSheetRange.col });
-        // alert(`${valueStore.getRowSize()}, ${valueStore.getColSize()}`);
+    const makeSheet = () => {
+        valueStore.setSheetName(tempSheetInfo.sheetName);
+        valueStore.setSheetRange({ row: tempSheetInfo.maxRow, col: tempSheetInfo.maxCol });
+
+        const res = repo.initSheetData({
+            sheetName: tempSheetInfo.sheetName,
+            maxRow: tempSheetInfo.maxRow,
+            maxCol: tempSheetInfo.maxCol
+        });
     }
 
     return (
         <div className="App">
-            <input type="text" name="row" placeholder="rowSize" value={tempSheetRange.row} onChange={onChange} />
-            <input type="text" name="col" placeholder="colSize" value={tempSheetRange.col} onChange={onChange} />
+            시트명 :
+            <input type="text" name="sheetName" placeholder="sheetName" value={tempSheetInfo.sheetName} onChange={onChange} />
+            <br />
+            row :
+            <input type="text" name="maxRow" placeholder="rowSize" value={tempSheetInfo.maxRow} onChange={onChange} />
+            col :
+            <input type="text" name="maxCol" placeholder="colSize" value={tempSheetInfo.maxCol} onChange={onChange} />
             <Link to="/NewSheet/EditSheet">
-                <input type="button" name="tempSheetRange" value="시트 생성" onClick={changeSheetRange} />
+                <input type="button" name="tempSheetRange" value="시트 생성" onClick={makeSheet} />
             </Link>
             <Link to="/">
                 <button>뒤로가기</button>

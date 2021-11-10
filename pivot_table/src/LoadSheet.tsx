@@ -10,7 +10,7 @@ const LoadSheet: React.FC = () => {
     const [num, setNum] = useState(-1);
 
     const onClick = (e: any) => {
-        repo.postTestMethod(123).then(response => alert(response.num || num));
+        repo.postTestMethod("와우!").then(response => alert(response.data || "ERROR"));
     }
 
     return (

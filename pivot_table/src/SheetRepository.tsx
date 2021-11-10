@@ -4,8 +4,12 @@ export interface dto<T> {
     dto: T;
 }
 
-export interface TestData {
-    num: number;
+export interface TestNumData {
+    data: number;
+}
+
+export interface TestStringData {
+    data: string;
 }
 
 export interface CellDataDTO {
@@ -28,6 +32,12 @@ export interface SheetRangeDTO {
     col: number;
 }
 
+export interface SheetInitDTO {
+    sheetName: string;
+    maxRow: number;
+    maxCol: number;
+}
+
 class SheetRepository {
     public constructor() {
         axios.defaults.baseURL = 'http://localhost:4000';
@@ -47,25 +57,23 @@ class SheetRepository {
     }
     */
 
-    public getTestMethod(num: number): Promise<TestData> {
+    public getTestMethod(num: number): Promise<TestNumData> {
         return axios.get(`/GET/test?num=${num}`).then(response => {
-            alert(response)
             return response.data;
         }).catch(() => {
             return 5678;
         });
     }
 
-    public postTestMethod(num: number): Promise<TestData> {
-        return axios.post(`/POST/test`, { dto: num }).then(response => {
-            alert(response)
+    public postTestMethod(data: string): Promise<TestStringData> {
+        return axios.post(`/POST/test`, { dto: data }).then(response => {
             return response.data;
         }).catch(() => {
             return 5678;
         });
     }
 
-    public initSheetData(sheet: SheetRangeDTO): Promise<number> {
+    public initSheetData(sheet: SheetInitDTO): Promise<number> {
         return axios.post('POST/sheet', { dto: sheet }).then(response => {
             return response.data;
         });
