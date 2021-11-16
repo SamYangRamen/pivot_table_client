@@ -38,6 +38,13 @@ export interface SheetInitDTO {
     maxCol: number;
 }
 
+export interface SheetInfoDTO {
+    sheetId: number;
+    sheetName: String;
+    maxRow: number;
+    maxCol: number;
+}
+
 class SheetRepository {
     public constructor() {
         axios.defaults.baseURL = 'http://localhost:4000';
@@ -76,6 +83,14 @@ class SheetRepository {
     public initSheetData(sheet: SheetInitDTO): Promise<number> {
         return axios.post('POST/sheet', { dto: sheet }).then(response => {
             return response.data;
+        });
+    }
+
+    public getSheetInfoList(): Promise<Array<SheetInfoDTO>> {
+        return axios.get(`GET/sheetInfo`).then(response => {
+            return response.data;
+        }).catch(() => {
+            return null;
         });
     }
 

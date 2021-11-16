@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Route, Switch, withRouter } from 'react-router';
-import Home from './Home';
-import LoadSheet from './LoadSheet';
-import NewSheet from './NewSheet';
-import RepositoryStore from './RepositoryStore';
-import RootStore from './RootStore';
-import StoreProvider from './StoreProvider';
-import ValueStore from './ValueStore';
+import Home from '../Home';
+import LoadSheet from 'src/component/LoadSheet';
+import NewSheet from 'src/component/NewSheet';
+import RepositoryStore from 'src/store/RepositoryStore';
+import RootStore from 'src/store/RootStore';
+import StoreProvider from 'src/store/StoreProvider';
+import ValueStore from 'src/store/ValueStore';
+import EditSheet from './EditSheet';
 
 /*  RootStore는, 프로그램 실행 내내 메모리 상에서 살아있어야 하고
     모든 컴포넌트들에서 공유 및 사용될 수 있어야 하는 데이터들을 저장하는 인터페이스임

@@ -9,8 +9,17 @@ export interface SheetRange {
 }
 
 export default class ValueStore {
+    @observable private sheetId: number = 0;
     @observable private sheetName: String = '';
     @observable private sheetRange: SheetRange = { row: 0, col: 0 };
+
+    public getSheetId(): number {
+        return this.sheetId;
+    }
+
+    public setSheetId(sheetId: number) {
+        this.sheetId = sheetId;
+    }
 
     public getSheetName(): String {
         return this.sheetName;

@@ -1,11 +1,9 @@
-import './Home.css';
 import React, { useState, useEffect } from 'react';
 import { Route, Link, BrowserRouter, withRouter } from 'react-router-dom';
-import Home from './Home';
-import ValueStore from './ValueStore'
-import useStore from './useStore';
-import RootStore from './RootStore';
-import EditSheet from './EditSheet';
+import ValueStore from 'src/store/ValueStore'
+import useStore from 'src/store/useStore';
+import RootStore from 'src/store/RootStore';
+import EditSheet from 'src/component/EditSheet';
 import { render } from '@testing-library/react';
 
 /* 새로운 Sheet를 생성하는 코드 */
@@ -39,10 +37,12 @@ const NewSheet: React.FC = () => {
         valueStore.setSheetName(tempSheetInfo.sheetName);
         valueStore.setSheetRange({ row: tempSheetInfo.maxRow, col: tempSheetInfo.maxCol });
 
-        const res = repo.initSheetData({
+        repo.initSheetData({
             sheetName: tempSheetInfo.sheetName,
             maxRow: tempSheetInfo.maxRow,
             maxCol: tempSheetInfo.maxCol
+        }).then(response => {
+            valueStore.setSheetId(response);
         });
     }
 

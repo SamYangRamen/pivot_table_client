@@ -1,6 +1,6 @@
 import { RefObject, useRef } from "react";
-import useSheet from "./useSheet";
-import useStore from "./useStore";
+import useSheet from "src/util/useSheet";
+import useStore from "src/store/useStore";
 
 interface Props {
     row: number;

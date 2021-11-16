@@ -41,3 +41,62 @@
 ### has no exported member FC
 
 `npm i @types/react@latest --save-dev`
+
+
+
+### cannot find module ... its corresponding type declarations
+
+src/ 경로에만 개발 중이던 파일들을 각 용도에 맞게 디렉터리들을 만들어서 이동시켰더니, import 문장들에 빨간줄이 뜨면서 위와 같은 오류 메시지가 발생했다.
+
+https://pythonq.com/so/import/1867577
+
+tsconfig.json의 compilerOptions에서 baseUrl을 "."으로 설정하면 해결된다.
+
+
+
+### JSX.Element[] 배열 안에 HTML 태그를 push한 것을 return할 때 렌더링이 안 되는 문제
+
+```react
+const panelData: JSX.Element[] = [];
+
+...
+
+panelData.push(
+	<...>...<...> // HTML 태그
+);
+
+...
+
+return (
+	...
+	<div>{panelData}</div>
+	...
+);
+```
+
+단순히 위와 같이 적으면 렌더링이 되지 않는다.
+
+```react
+const [panel, setPanel] = useState<JSX.Element[]>();
+const panelData: JSX.Element[] = [];
+
+...
+
+panelData.push(
+	<...>...<...> // HTML 태그
+);
+
+...
+
+setPanel(panelData);
+
+return (
+	...
+	<div>{panelData}</div>
+	...
+);
+```
+
+그런데 위와 같이 JSX.Element[] 배열을 useState()에 넣어놓고 return하면 정상적으로 렌더링이 된다.
+
+왜 그런지 아직 원인을 파악하지 못했음
