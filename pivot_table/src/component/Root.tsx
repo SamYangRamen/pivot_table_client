@@ -22,6 +22,7 @@ const Root: React.FC = () => {
             <Switch>
                 <Route path='/LoadSheet' component={LoadSheet} />
                 <Route path='/NewSheet' component={NewSheet} />
+                <Route path='/EditSheet' component={EditSheet} />
                 <Route path='/' exact component={Home} />
             </Switch>
         </StoreProvider>

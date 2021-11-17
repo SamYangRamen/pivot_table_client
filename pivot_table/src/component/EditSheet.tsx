@@ -1,11 +1,18 @@
 import React, { useState, useEffect, RefObject, useRef } from 'react';
-import { withRouter } from 'react-router';
+import { Route, RouteComponentProps, withRouter } from 'react-router';
 import useStore from 'src/store/useStore';
 import ShowSheet from 'src/component/ShowSheet';
+import MouseEventHandler from 'src/util/MouseEventHandler';
 
 /* 불러오거나 새로 생성한 Sheet를 직접 편집하는 코드 */
-const EditSheet: React.FC = () => {
+const EditSheet: React.FC<RouteComponentProps> = ({ location, history }: RouteComponentProps) => {
     const { valueStore } = useStore();
+
+    useEffect(() => {
+        if (valueStore.getSheetId == undefined || valueStore.getSheetId() == 0) {
+            history.push("/");
+        }
+    }, [])
 
     return (
         <div>

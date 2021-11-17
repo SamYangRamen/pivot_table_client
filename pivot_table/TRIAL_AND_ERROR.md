@@ -100,3 +100,9 @@ return (
 그런데 위와 같이 JSX.Element[] 배열을 useState()에 넣어놓고 return하면 정상적으로 렌더링이 된다.
 
 왜 그런지 아직 원인을 파악하지 못했음
+
+
+
+### observable 데코레이터 하나만으로는 제기능을 하지 못함
+
+생성자에서 makeObservable(this); 라는 메서드를 사용해야 비로소 실시간으로 관찰하게 됨

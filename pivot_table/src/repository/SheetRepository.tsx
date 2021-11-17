@@ -94,6 +94,14 @@ class SheetRepository {
         });
     }
 
+    public deleteSheetData(sheetId: number): Promise<number> {
+        return axios.delete(`DELETE/sheet?sheetId=${sheetId}`).then(response => {
+            return response.data;
+        }).catch(() => {
+            return null;
+        });
+    }
+
     public getSheetData(sheetId: number): Promise<SheetDataDTO> {
         return axios.get(`HTTP GET /sheet?sheetId=${sheetId}`).then(response => {
             return response.data;

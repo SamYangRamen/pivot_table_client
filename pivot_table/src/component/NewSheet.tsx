@@ -8,8 +8,8 @@ import { render } from '@testing-library/react';
 
 /* 새로운 Sheet를 생성하는 코드 */
 const NewSheet: React.FC = () => {
-    const { valueStore } = useStore();
-    const repo = useStore().repositoryStore.getSheetRepository();
+    const { valueStore, repositoryStore } = useStore();
+    const repo = repositoryStore.getSheetRepository();
 
     const [tempSheetInfo, setTempSheetInfo] = useState({
         sheetName: '',
@@ -55,14 +55,14 @@ const NewSheet: React.FC = () => {
             <input type="text" name="maxRow" placeholder="rowSize" value={tempSheetInfo.maxRow} onChange={onChange} />
             col :
             <input type="text" name="maxCol" placeholder="colSize" value={tempSheetInfo.maxCol} onChange={onChange} />
-            <Link to="/NewSheet/EditSheet">
+            <Link to="/EditSheet">
                 <input type="button" name="tempSheetRange" value="시트 생성" onClick={makeSheet} />
             </Link>
             <Link to="/">
                 <button>뒤로가기</button>
             </Link>
             <hr />
-            <Route path="/NewSheet/EditSheet" component={EditSheet} />
+            <Route path="/EditSheet" component={EditSheet} />
         </div>
     );
 }

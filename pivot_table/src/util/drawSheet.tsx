@@ -1,5 +1,6 @@
 import { autorun } from "mobx";
-import { RefObject, useEffect } from "react";
+import React, { RefObject, useContext, useEffect } from "react";
+import useStore from "src/store/useStore";
 
 type Hook = (
     refctx: RefObject<HTMLCanvasElement>,
@@ -11,11 +12,15 @@ type Hook = (
     totalColWidth: number;
 };
 
-const useSheet: Hook = (refctx, row, col) => {
+const useDrawSheet: Hook = (refctx, row, col) => {
+    const { valueStore } = useStore();
+
     const cellRowWidth = 30;
     const cellColWidth = 60;
     const totalRowWidth = row * cellRowWidth;
     const totalColWidth = col * cellColWidth;
+    const startPointTop = 100;
+    const startPointLeft = 50;
 
     const painter = (ctx: CanvasRenderingContext2D) => {
         ctx.strokeStyle = 'black';
@@ -36,16 +41,14 @@ const useSheet: Hook = (refctx, row, col) => {
             return;
         }
 
-        autorun(() => {
-            ctx.clearRect(0, 0, totalRowWidth, totalColWidth);
-            painter(ctx);
-        })
+        ctx.clearRect(0, 0, totalColWidth, totalRowWidth);
+        painter(ctx);
     })
 
     return {
         canvasStyle: {
-            top: `${100}px`,
-            left: `${50}px`,
+            top: `${startPointTop}px`,
+            left: `${startPointLeft}px`,
             border: '1px solid black',
             position: 'absolute',
         },
@@ -54,4 +57,4 @@ const useSheet: Hook = (refctx, row, col) => {
     };
 }
 
-export default useSheet;
+export default useDrawSheet;
