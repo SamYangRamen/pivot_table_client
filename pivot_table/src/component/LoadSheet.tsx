@@ -4,13 +4,12 @@ import { Route, Link, withRouter } from 'react-router-dom';
 import SheetRepository, { SheetInfoDTO } from 'src/repository/SheetRepository';
 import useStore from 'src/store/useStore';
 import EditSheet from 'src/component/EditSheet';
-import MouseEventHandler from 'src/util/MouseEventHandler';
 
 /* DB에 저장되었던 Sheet 정보들을 불러오는 코드 */
 
 const LoadSheet: React.FC = () => {
-    const { valueStore } = useStore();
-    const repo = useStore().repositoryStore.getSheetRepository();
+    const { valueStore, repositoryStore } = useStore();
+    const repo = repositoryStore.getSheetRepository();
 
     const [title, setTitle] = useState<JSX.Element>();
     const [panel, setPanel] = useState<Array<JSX.Element>>([]);
@@ -21,6 +20,7 @@ const LoadSheet: React.FC = () => {
         valueStore.setSheetId(parseInt(e.target.name));
         valueStore.setSheetName(sheetInfoList[parseInt(e.target.placeholder)].sheetName);
         valueStore.setSheetRange({ row: sheetInfoList[parseInt(e.target.placeholder)].maxRow, col: sheetInfoList[parseInt(e.target.placeholder)].maxCol });
+
         setTitle(<></>); // 가비지 콜렉션 수행
         setPanel([]); // 가비지 콜렉션 수행
     }
@@ -44,7 +44,6 @@ const LoadSheet: React.FC = () => {
 
     const showSheetInfoList = () => {
         const panelData: Array<JSX.Element> = [];
-        const panelIdxListData: Map<number, number> = new Map<number, number>();
 
         setTitle(<>편집할 시트를 선택하세요. <br /><br /></>);
 
@@ -70,6 +69,8 @@ const LoadSheet: React.FC = () => {
     }
 
     useEffect(() => {
+        if (valueStore.getSheetId())
+            valueStore.deleteAllSheetData();
         showSheetInfoList();
     }, []);
 

@@ -1,4 +1,4 @@
-import { action, autorun } from "mobx";
+import { action, autorun, reaction } from "mobx";
 import { RefObject, useEffect } from "react";
 import ValueStore from "src/store/ValueStore";
 import useStore from "../store/useStore";
@@ -16,12 +16,9 @@ type Hook = (
 const useDrawSelect: Hook = (refctx, row, col) => {
     const { valueStore } = useStore();
 
-    const cellRowWidth = 30;
-    const cellColWidth = 60;
+    const { cellRowWidth, cellColWidth, startPointTop, startPointLeft } = valueStore.getFixedValues();
     const totalRowWidth = row * cellRowWidth;
     const totalColWidth = col * cellColWidth;
-    const startPointTop = 100;
-    const startPointLeft = 50;
 
     const painter = (ctx: CanvasRenderingContext2D) => {
         const top = valueStore.getClickStartCellRowIdx();
@@ -43,6 +40,7 @@ const useDrawSelect: Hook = (refctx, row, col) => {
             return;
         }
 
+        // observable한 변수에 변화가 있을 때 이를 감지하여 실행하는 메서드
         autorun(() => {
             ctx.clearRect(0, 0, totalColWidth, totalRowWidth);
             if (valueStore.getClickBaseCellRowIdx() != -1)
